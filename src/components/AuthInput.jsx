@@ -22,11 +22,17 @@ const StyledInput = styled.input`
   border-radius: 0px;
 `;
 
-const AuthInput = () => {
+//Input輸入框，以及相關props
+const AuthInput = ({ type, label, value, placeholder, onChange }) => {
   return (
     <StyledContainer>
-      <StyledLabel>label</StyledLabel>
-      <StyledInput type="text" placeholder="placeholder" />
+      <StyledLabel>{label}</StyledLabel>
+      <StyledInput
+        type={type || 'text'}
+        value={value || ''} // 如果外層沒有帶入 props 就預設給一個空字串
+        placeholder={placeholder || ''}
+        onChange={(event) => onChange?.(event.target.value)}
+      />
     </StyledContainer>
   );
 };

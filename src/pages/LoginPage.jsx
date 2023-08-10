@@ -8,12 +8,14 @@ import { ACLogoIcon } from 'assets/images';
 import { AuthInput } from 'components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { login } from '../api/auth'
+import { login } from '../api/auth';
+import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  //檢查字串是否存在
   const handleClick = async () => {
     if (username.length === 0) {
       return;
@@ -25,9 +27,29 @@ const LoginPage = () => {
     const { success, authToken } = await login({
       username, password
     });
+
     if (success) {
-      localStorage.setItem("authToken", authToken);
+      //set auth token in localStorage
+      localStorage.setItem('authToken', authToken);
+      //login success toast
+      Swal.fire({
+        position: "top",
+        title: "登入成功！",
+        icon: "success",
+        timer: 1000,
+        showConfirmButton: false,
+      });
+      return;
     }
+
+    //login failed toast
+    Swal.fire({
+      position: "top",
+      title: "登入失敗！",
+      icon: "error",
+      timer: 1000,
+      showConfirmButton: false,
+    });
   };
 
   return (

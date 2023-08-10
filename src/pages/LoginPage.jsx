@@ -7,13 +7,14 @@ import {
 import { ACLogoIcon } from 'assets/images';
 import { AuthInput } from 'components';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../api/auth';
 import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   //檢查字串是否存在
   const handleClick = async () => {
@@ -39,6 +40,7 @@ const LoginPage = () => {
         timer: 1000,
         showConfirmButton: false,
       });
+      navigate('/todos');
       return;
     }
 

@@ -10,6 +10,8 @@ export const login = async ({ username, password }) => {
       password,
     })
 
+    console.log(data)
+
     const { authToken } = data
     if (authToken) {
       return { success: true, ...data }

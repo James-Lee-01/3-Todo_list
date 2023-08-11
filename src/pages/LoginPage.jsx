@@ -8,13 +8,14 @@ import { ACLogoIcon } from 'assets/images';
 import { AuthInput } from 'components';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login, checkPermission } from '../api/auth';
+import { useAuth } from '../contexts/AuthContext';
 import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+  const { login, isAuthenticated } = useAuth();
 
   //檢查字串是否存在
   const handleClick = async () => {
@@ -25,13 +26,12 @@ const LoginPage = () => {
       return;
     }
 
-    const { success, authToken } = await login({
-      username, password
+    const success = await login({
+      username, 
+      password,
     });
 
     if (success) {
-      //set auth token in localStorage
-      localStorage.setItem('authToken', authToken);
       //login success toast
       Swal.fire({
         position: "top",
@@ -40,7 +40,6 @@ const LoginPage = () => {
         timer: 1000,
         showConfirmButton: false,
       });
-      navigate('/todos');
       return;
     }
 
@@ -56,19 +55,10 @@ const LoginPage = () => {
 
   //Token Permission
   useEffect(() => {
-    const checkTokenIsValid = async () => {
-      const authToken = localStorage.getItem('authToken');
-      if (!authToken) {
-        return;
-      }
-      const result = await checkPermission(authToken);
-      if (result) {
-        navigate('/todos');
-      }
-    };
-
-    checkTokenIsValid();
-  }, [navigate]);
+    if (isAuthenticated) {
+      navigate('/todos')
+    }
+  }, [navigate, isAuthenticated]);
 
   return (
     <AuthContainer>

@@ -14,7 +14,7 @@ export const login = async ({ username, password }) => {
     console.log(data)
 
     const { authToken } = data
-    
+
     if (authToken) {
       return { success: true, ...data }
     }
@@ -43,3 +43,17 @@ export const register = async ({ username, email, password }) => {
     console.error('[Register Failed]:', error);
   }
 };
+
+//Check Permission
+export const checkPermission = async (authToken) => {
+  try {
+    const response = await axios.get(`${authURL}/test-token`, {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+      },
+    });
+    return response.data.success;
+  } catch(error) {
+    console.error('[Check Permission Failed]:', error)
+  }
+}

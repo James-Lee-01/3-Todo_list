@@ -2,6 +2,7 @@
 透過 Create React App 建立的Todo list。
 
 ## 功能
+- 註冊與登入帳號
 - 待辦事項的調整：
   - 新增
   - 修改
@@ -27,7 +28,7 @@
     npm start
     ```
 
-5. 打開瀏覽器進入到以下網址：`http://localhost:3000/todo` 執行，終端機出現以下訊息則代表成功執行：
+5. 打開瀏覽器進入到以下網址：`http://localhost:3000/login` 執行，終端機出現以下訊息則代表成功執行：
 
    ```bash
     Compiled successfully!
@@ -42,4 +43,7 @@
 
 ## 開發工具
 - React: v18.2.0
+- sass: v1.56.2
 - CLSX: v1.2.1
+- axios: v0.27.2
+- sweetalert2: v11.6.4

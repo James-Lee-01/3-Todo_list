@@ -3,7 +3,7 @@ import { HomePage, TodoPage, LoginPage, SignUpPage } from './pages';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from 'contexts/AuthContext';
 
-const basename = process.env.PUBLIC_URL
+const basename = process.env.PUBLIC_URL;
 
 function App() {
   return (
